@@ -61,7 +61,7 @@ int urlexp(FILE *in)
 		if (!(pat && num1 && num2))
 		{
 			fprintf(stderr, "line %d: Sytax error.\n", lineno);
-			exit(1);
+			return 0;
 		}
 		width = strlen(num1);
 		begin = atoi(num1);
@@ -69,18 +69,18 @@ int urlexp(FILE *in)
 		if (end <= begin)
 		{
 			fprintf(stderr, "line %d: Can't determine rang.\n", lineno);
-			exit(1);
+			return 0;
 		}
 		else if (begin - end > MAXRANG)
 		{
 			fprintf(stderr, "line %d: Out of rang.\n", lineno);
-			exit(1);
+			return 0;
 		}
 		ptr = strstr(http, pat);
 		if (!ptr)
 		{
-			fprintf(stderr, "line %s: Pattern doesn't apear in URL.\n", lineno);
-			exit(1);
+			fprintf(stderr, "line %d: Pattern doesn't apear in URL.\n", lineno);
+			return 0;
 		}
 		*(ptr) = '\0';
 		ptr += strlen(pat);
